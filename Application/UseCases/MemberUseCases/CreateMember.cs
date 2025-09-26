@@ -1,27 +1,27 @@
 ﻿using Todo.Entities;
 using Todo.Interfaces.Repositories;
 
-namespace Todo.UseCases.MemberUseCases
+namespace Todo.UseCases.MemberUseCases;
+
+public class CreateMember
 {
-    public class CreateMember
+    private readonly IMemberRepository memberRepository;
+
+    public CreateMember(IMemberRepository memberRepository)
     {
-        private readonly IMemberRepository memberRepository;
+        this.memberRepository = memberRepository;
+    }
 
-        public CreateMember(IMemberRepository memberRepository)
+    public async Task ExecuteCreateMember(string firstName, string lastName)
+    {
+        try
         {
-            this.memberRepository = memberRepository;
+            var toSave = new Member(firstName, lastName);
+            await memberRepository.Insert(toSave);
         }
-
-        public async Task ExecuteCreateMember(Member obj)
+        catch (Exception ex)
         {
-            try
-            {
-                await memberRepository.Insert(obj);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            throw new Exception(ex.Message);
         }
     }
 }
