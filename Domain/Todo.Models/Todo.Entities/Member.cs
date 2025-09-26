@@ -8,7 +8,7 @@
             this.Last = last;
         }
 
-        public required string First { get; set; }
-        public required string Last { get; set; }
+        public string First { get; set; }
+        public string Last { get; set; }
     }
 }

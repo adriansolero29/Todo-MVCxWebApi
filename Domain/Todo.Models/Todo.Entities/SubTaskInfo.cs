@@ -8,6 +8,6 @@ public class SubTaskInfo : BaseEntity
         this.Name = Name;
     }
 
-    public required TaskInfo Task { get; set; }
-    public required string Name { get; set; }
+    public TaskInfo Task { get; set; }
+    public string Name { get; set; }
 }
