@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Todo.Models\Todo.Entities\Todo.Entities.csproj" />
+    <ProjectReference Include="..\..\Domain\Todo.Interfaces\Todo.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Domain\Todo.Models\Todo.Entities\Todo.Entities.csproj" />
   </ItemGroup>
 
 </Project>
