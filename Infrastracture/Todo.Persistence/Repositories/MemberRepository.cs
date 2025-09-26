@@ -25,9 +25,17 @@ public class MemberRepository : IMemberRepository
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Member>> GetAll()
+    public async Task<IEnumerable<Member>> GetAll()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await context.Members.ToListAsync();
+            return result.Select(x => new Member(x.First, x.Last) { Id = x.Id });
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Exception occured while getting all data: " + ex.Message);
+        }
     }
 
     public Task<Member> GetById(int id)
