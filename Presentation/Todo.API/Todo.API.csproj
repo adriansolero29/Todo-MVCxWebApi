@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\UseCases\Todo.UseCases.csproj" />
+    <ProjectReference Include="..\..\Domain\Todo.Interfaces\Todo.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Domain\Todo.Models\Todo.Entities\Todo.Entities.csproj" />
     <ProjectReference Include="..\..\Infrastracture\Todo.Persistence\Todo.Persistence.csproj" />
   </ItemGroup>
 
