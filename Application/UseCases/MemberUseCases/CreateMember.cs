@@ -12,7 +12,7 @@ public class CreateMember
         this.memberRepository = memberRepository;
     }
 
-    public async Task ExecuteCreateMember(string firstName, string lastName)
+    public async Task ExecuteAsync(string firstName, string lastName)
     {
         try
         {
@@ -21,7 +21,7 @@ public class CreateMember
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            throw new Exception("Use case error: " + ex.Message);
         }
     }
 }
