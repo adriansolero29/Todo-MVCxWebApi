@@ -2,12 +2,12 @@
 
 public class SubTaskInfo : BaseEntity
 {
-    public SubTaskInfo(TaskInfo task, string Name)
+    public SubTaskInfo(long taskId, string Name)
     {
-        this.Task = task;
+        this.TaskId = taskId;
         this.Name = Name;
     }
 
-    public TaskInfo Task { get; set; }
+    public long TaskId { get; set; }
     public string Name { get; set; }
 }
