@@ -20,7 +20,7 @@ public class TaskRepository : ITaskInfoRepository
         throw new NotImplementedException();
     }
 
-    public Task<bool> DeleteById(int id)
+    public Task<bool> DeleteById(long id)
     {
         throw new NotImplementedException();
     }
@@ -39,9 +39,23 @@ public class TaskRepository : ITaskInfoRepository
         }
     }
 
-    public Task<TaskInfo> GetById(int id)
+    public async Task<TaskInfo?> GetById(long id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await dbContext.Tasks.Include(x => x.AssignedToMember).FirstOrDefaultAsync(x => x.Id == id);
+            if (result == null)
+            {
+                return null;
+            }
+
+            return new TaskInfo(result!.Name, result!.DueDate) { Id = result!.Id, AssignToMember = new Member(result!.AssignedToMember?.First ?? "", result!.AssignedToMember?.Last ?? "") };
+        }
+        catch (Exception ex)
+        {
+
+            throw new Exception("Error occured getting task: " + ex.Message);
+        }
     }
 
     public async Task<bool> Insert(TaskInfo entity)
