@@ -2,16 +2,17 @@
 
 public class TaskInfo : BaseEntity
 {
-    public TaskInfo(string? name, DateTime? dueDate = null, Member? assignedToMember = null)
+    public TaskInfo(string? name, DateTime? dueDate = null, long? assignedToMemberId = null)
     {
         Name = name;
         DueDate = dueDate;
-        AssignedToMember = assignedToMember;
+        AssignedToMemberId = assignedToMemberId;
     }
 
     public string? Name { get; set; }
     public DateTime? DueDate { get; private set; }
-    public Member? AssignedToMember { get; private set; }
+    public long? AssignedToMemberId { get; private set; }
+    public Member? AssignToMember { get; set; }
     public bool IsCompleted { get; private set; } = false;
 
     private List<SubTaskInfo> subTasks = new();
@@ -19,5 +20,5 @@ public class TaskInfo : BaseEntity
 
     public void SetCompleted() => IsCompleted = true;
     public void SetDueDate(DateTime dueDate) => DueDate = dueDate;
-    public void SetAssignee(Member member) => AssignedToMember = member;
+    public void SetAssignee(long memberId) => AssignedToMemberId = memberId;
 }

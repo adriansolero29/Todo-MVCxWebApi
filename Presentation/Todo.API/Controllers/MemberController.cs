@@ -24,11 +24,11 @@ namespace Todo.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertNewMember([FromBody] MemberDTO obj)
+        public async Task<IActionResult> Post([FromBody] MemberDTO obj)
         {
             try
             {
-                await createMember.ExecuteCreateMember(obj.First, obj.Last);
+                await createMember.ExecuteAsync(obj.First, obj.Last);
                 return Ok();
             }
             catch (Exception ex)
@@ -38,7 +38,7 @@ namespace Todo.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllMembers()
+        public async Task<IActionResult> Get()
         {
             var res = await getMembers.ExecuteAllAsync();
             return Ok(res);

@@ -20,7 +20,7 @@ public class MemberRepository : IMemberRepository
         throw new NotImplementedException();
     }
 
-    public Task<bool> DeleteById(int id)
+    public Task<bool> DeleteById(long id)
     {
         throw new NotImplementedException();
     }
@@ -38,7 +38,7 @@ public class MemberRepository : IMemberRepository
         }
     }
 
-    public Task<Member> GetById(int id)
+    public Task<Member?> GetById(long id)
     {
         throw new NotImplementedException();
     }

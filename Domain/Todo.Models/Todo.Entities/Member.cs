@@ -1,14 +1,14 @@
-﻿namespace Todo.Entities
+﻿namespace Todo.Entities;
+public class Member : BaseEntity
 {
-    public class Member : BaseEntity
+    public Member(string first, string last)
     {
-        public Member(string first, string last)
-        {
-            this.First = first;
-            this.Last = last;
-        }
-
-        public string First { get; set; }
-        public string Last { get; set; }
+        this.First = first;
+        this.Last = last;
     }
+
+    public string First { get; set; }
+    public string Last { get; set; }
+
+    public string FullName => $"{First} {Last}";
 }
