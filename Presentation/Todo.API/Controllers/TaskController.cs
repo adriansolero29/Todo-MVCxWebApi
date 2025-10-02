@@ -47,5 +47,20 @@ namespace Todo.API.Controllers
                 return BadRequest(new { Message = "Error occured getting all task: " + ex.Message });
             }
         }
+
+        [HttpGet]
+        [Route("{id:long}")]
+        public async Task<IActionResult> Get(long id)
+        {
+            try
+            {
+                var result = await getTask.ExecuteOneAsync(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = "Error occured getting task: " + ex.Message });
+            }
+        }
     }
 }
