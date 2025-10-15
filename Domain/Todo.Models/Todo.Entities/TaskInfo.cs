@@ -16,8 +16,11 @@ public class TaskInfo : BaseEntity
     public bool IsCompleted { get; private set; } = false;
 
     private List<SubTaskInfo> subTasks = new();
-    public IReadOnlyList<SubTaskInfo> SubTasks => subTasks.ToList();
+    public IList<SubTaskInfo> SubTasks => subTasks.ToList();
+    public List<SubTaskInfo> SubTaskList { get; set; }
 
+    public void AddSubTask(List<SubTaskInfo> subTaskList) => subTasks.AddRange(subTaskList);
+    public void AddSubTask(SubTaskInfo subTask) => subTasks.Add(subTask);
     public void SetCompleted() => IsCompleted = true;
     public void SetDueDate(DateTime dueDate) => DueDate = dueDate;
     public void SetAssignee(long memberId) => AssignedToMemberId = memberId;

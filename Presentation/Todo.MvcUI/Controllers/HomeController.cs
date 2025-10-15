@@ -25,7 +25,7 @@ namespace Todo.MvcUI.Controllers
                 return Error();
 
             var data = await response.Content.ReadAsStringAsync();
-            var jsonOutput = JsonSerializer.Deserialize<IEnumerable<TaskDTO>>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true});
+            var jsonOutput = JsonSerializer.Deserialize<IEnumerable<TaskOL>>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true});
 
             return View(jsonOutput);
         }

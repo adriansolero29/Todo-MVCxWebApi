@@ -29,9 +29,21 @@ public class TaskRepository : ITaskInfoRepository
     {
         try
         {
-            var result = await dbContext.Tasks.Include(x => x.AssignedToMember).ToListAsync();
-            return result
-                .Select(x => new TaskInfo(x.Name, x.DueDate) { Id = x.Id, AssignToMember = new Member(x.AssignedToMember?.First ?? "", x.AssignedToMember?.Last ?? "") });
+            var result = await dbContext.Tasks
+                .Include(x => x.SubTasks)
+                .Include(x => x.AssignedToMember)
+                .ToListAsync();
+
+            var output = result.Select(x => new TaskInfo(x.Name, x.DueDate)
+            {
+                Id = x.Id,
+                AssignToMember = new Member(x.AssignedToMember?.First ?? "", x.AssignedToMember?.Last ?? ""),
+                SubTaskList = x.SubTasks?.Select(i => new SubTaskInfo(x.Id, i.Name) { Id = i.Id }).ToList() ?? new List<SubTaskInfo>()
+            });
+
+            //.AddSubTask(x.SubTasks.Select(g => new SubTaskInfo(x.Id, g.Name)).ToList())
+
+            return output;
         }
         catch (Exception ex)
         {

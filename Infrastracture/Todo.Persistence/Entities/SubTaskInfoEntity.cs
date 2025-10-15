@@ -11,4 +11,5 @@ public class SubTaskInfoEntity
     public required string Name { get; set; }
     public long TaskInfoId { get; set; }
     public TaskInfoEntity? TaskInfo { get; set; }
+    public bool IsCompleted { get; set; }
 }

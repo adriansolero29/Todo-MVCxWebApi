@@ -10,4 +10,7 @@ public class SubTaskInfo : BaseEntity
 
     public long TaskId { get; set; }
     public string Name { get; set; }
+    public bool IsCompleted { get; set; }
+
+    public void SetCompleted() => IsCompleted = true;
 }
