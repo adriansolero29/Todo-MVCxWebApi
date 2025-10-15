@@ -29,20 +29,43 @@
                             <p class="align-middle">
                                 @item.DueDate?.ToLongDateString()
                             </p>
+                            <p class="align-middle">
+                                @item.AssignedMember?.First @item.AssignedMember?.Last
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div id="@childId" class="accordion-collapse collapse" data-bs-parent="#@parentId">
                     <div class="btn-group d-flex p-2">
-                        <a class="btn btn-secondary" href="#">
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addSubTaskModal">
                             <i class="bi bi-person-add"></i>
-                        </a>
-                        <a class="btn btn-outline-primary">
+                        </button>
+                        <button class="btn btn-outline-primary">
                             <i class="bi bi-calendar2-plus"></i>
-                        </a>
-                        <a class="btn btn-outline-secondary">
+                        </button>
+                        <button class="btn btn-outline-secondary">
                             <i class="bi bi-plus-square"></i>
-                        </a>
+                        </button>
+
+                        <div class="modal fade" id="addSubTaskModal" tabindex="-1" aria-hidden="true" aria-labelledby="exampleModalLabel">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="h5">
+                                            Add Subtask
+                                        </h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input class="form-control" type="text" placeholder="Name" />
+                                    </div>
+                                    <div class="modal-footer btn-group">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     @if (item.SubTasks != null)
                     {
