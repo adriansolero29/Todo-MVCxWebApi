@@ -7,5 +7,6 @@
         public DateTime? DueDate { get; set; }
         public long? AssignToMemberId { get; set; }
         public MemberDTO? AssignToMember { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }
