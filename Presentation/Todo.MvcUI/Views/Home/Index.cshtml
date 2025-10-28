@@ -19,9 +19,10 @@
         <div class="accordion shadow-sm flex" id="@parentId">
             <div class="accordion-item">
                 <div class="accordion-header">
+                    <button>test</button>
                     <div class="accordion-button collapsed d-flex" type="button" data-bs-toggle="collapse" data-bs-target="#@childId" aria-expanded="false" aria-controls="#@childId">
                         <div class="flex-fill">
-                            <h3 class="display-6">
+                            <h3 class="h-5">
                                 @item.Name
                             </h3>
                         </div>
@@ -38,40 +39,28 @@
                 <div id="@childId" class="accordion-collapse collapse" data-bs-parent="#@parentId">
                     <div class="btn-group d-flex p-2">
                         <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addSubTaskModal">
-                            <i class="bi bi-person-add"></i>
+                            <i class="bi bi-file-earmark-plus-fill h-50"></i>
                         </button>
-                        <button class="btn btn-outline-primary">
-                            <i class="bi bi-calendar2-plus"></i>
-                        </button>
+                        @* <i class="bi bi-calendar2-plus"></i> *@
+                        <a class="btn btn-outline-secondary">
+                            <form class="d-flex" asp-action="ChangeDueDate">
+                                <input type="hidden" name="Id" asp-for="@item.Id" />
+                                <label for="#dueDate" class="text-start flex-grow-1">@Html.DisplayNameFor(model => model.DueDate)</label>
+                                <input asp-for="@item.DueDate" name="DueDate" id="dueDate" class="form-control flex-fill" placeholder="Due Date" />
+                                <input type="submit" value="Save DueDate" class="btn btn-primary" />
+                            </form>
+                        </a>
                         <button class="btn btn-outline-secondary">
-                            <i class="bi bi-plus-square"></i>
+                            <i class="bi bi-person-plus-fill fw-bold"></i>
                         </button>
 
-                        <div class="modal fade" id="addSubTaskModal" tabindex="-1" aria-hidden="true" aria-labelledby="exampleModalLabel">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="h5">
-                                            Add Subtask
-                                        </h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        <input class="form-control" type="text" placeholder="Name" />
-                                    </div>
-                                    <div class="modal-footer btn-group">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        <partial name="AddSubTaskModal" aria-labelledby="exampleModalLabel" model="new SubTaskOL() { TaskId = item.Id }" />
                     </div>
                     @if (item.SubTasks != null)
                     {
                         @foreach (var subtask in item?.SubTasks ?? new List<SubTaskOL>())
                         {
-                            <div class="accordion-body">
+                            <div class="accordion-body px-5">
                                 <p>
                                     @subtask.Name
                                 </p>
