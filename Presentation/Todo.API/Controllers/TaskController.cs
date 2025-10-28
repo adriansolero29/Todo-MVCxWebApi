@@ -11,11 +11,13 @@ namespace Todo.API.Controllers
     {
         private readonly CreateTask createTask;
         private readonly GetTasks getTask;
+        private readonly SetDueDate setDueDate;
 
-        public TaskController(CreateTask createTask, GetTasks getTask)
+        public TaskController(CreateTask createTask, GetTasks getTask, SetDueDate setDueDate)
         {
             this.createTask = createTask;
             this.getTask = getTask;
+            this.setDueDate = setDueDate;
         }
 
         [HttpPost]
@@ -31,6 +33,21 @@ namespace Todo.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { Message = "Error occured saving task: " + ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("{id:long}/{dueDate:datetime}")]
+        public async Task<IActionResult> Post(long id, [FromBody] DateTime dueDate)
+        {
+            try
+            {
+                await setDueDate.Execute(id, dueDate);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = "Error occured setting due date: " + ex.Message });
             }
         }
 
