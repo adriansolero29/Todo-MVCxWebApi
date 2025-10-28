@@ -92,8 +92,32 @@ public class TaskRepository : ITaskInfoRepository
         }
     }
 
-    public Task<bool> Update(TaskInfo entity)
+    public async Task<bool> Update(TaskInfo entity)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (entity?.Id == null) return false;
+
+            var toUpdate = await dbContext.Tasks.FindAsync(entity.Id);
+            if (toUpdate == null) return false;
+
+            toUpdate.DueDate = entity.DueDate;
+            toUpdate.AssignedToMemberId = entity.AssignedToMemberId;
+            toUpdate.Name = entity.Name;
+            toUpdate.IsCompleted = entity.IsCompleted;
+
+            var subTasksFromEntity = entity.SubTasks.Select(x => new SubTaskInfoEntity() { Name = x.Name, IsCompleted = x.IsCompleted, TaskInfoId = x.TaskId });
+
+            toUpdate.SubTasks?.AddRange(subTasksFromEntity);
+
+            dbContext.Tasks.Update(toUpdate);
+            await dbContext.SaveChangesAsync();
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Error occured inserting task: " + ex.Message);
+        }
     }
 }
