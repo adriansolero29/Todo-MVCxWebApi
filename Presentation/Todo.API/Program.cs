@@ -3,6 +3,7 @@ using Todo.Interfaces.Repositories;
 using Todo.Persistence.Data;
 using Todo.Persistence.Repositories;
 using Todo.UseCases.MemberUseCases;
+using Todo.UseCases.SubTaskUseCases;
 using Todo.UseCases.TaskUseCases;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,10 +19,13 @@ builder.Services.AddDbContext<TodoDbContext>(options => options.UseSqlServer(bui
 
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<ITaskInfoRepository, TaskRepository>();
+builder.Services.AddScoped<ISubTaskInfoRepository, SubTaskRepository>();
 builder.Services.AddScoped<CreateMember>();
 builder.Services.AddScoped<GetMembers>();
 builder.Services.AddScoped<CreateTask>();
 builder.Services.AddScoped<GetTasks>();
+builder.Services.AddScoped<CreateSubTask>();
+builder.Services.AddScoped<SetDueDate>();
 
 var app = builder.Build();
 
