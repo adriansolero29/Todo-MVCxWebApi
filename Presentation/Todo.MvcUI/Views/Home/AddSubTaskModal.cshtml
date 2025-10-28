@@ -1,0 +1,23 @@
+﻿@model Todo.MvcUI.Models.SubTaskOL
+
+<div class="modal fade" id="addSubTaskModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="h5">
+                    Add Subtask
+                </h5>
+            </div>
+            <form asp-action="CreateSubTask">
+                <div class="modal-body">
+                    <input type="hidden" asp-for="TaskId" />
+                    <input asp-for="Name" class="form-control" type="text" placeholder="Name" />
+                </div>
+                <div class="modal-footer btn-group">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" Value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
