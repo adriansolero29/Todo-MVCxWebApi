@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Diagnostics;
@@ -48,6 +49,20 @@ namespace Todo.MvcUI.Controllers
         public async Task<IActionResult> ChangeDueDate(long Id, DateTime DueDate)
         {
             var response = await _httpClient.PostAsJsonAsync($"Task/{Id}/{DueDate:o}", DueDate);
+            if (!response.IsSuccessStatusCode)
+                return Error();
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> CreateTask([Bind("Name,DueDate")] TaskOL task)
+        {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("AddTaskModal");
+            }
+
+            var response = await _httpClient.PostAsJsonAsync("Task", task);
             if (!response.IsSuccessStatusCode)
                 return Error();
 
