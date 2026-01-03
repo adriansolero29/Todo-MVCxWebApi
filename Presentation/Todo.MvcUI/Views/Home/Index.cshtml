@@ -10,7 +10,7 @@
     <div class="col w-50">
     </div>
 </div>
-<div class="row h-100 p-4 shadow-sm">
+<div class="row h-100 p-4">
     @foreach (var item in Model)
     {
         string parentId = $"_{item.Id}_{item.Name?.Replace(' ', '_')}";
@@ -19,15 +19,14 @@
         <div class="accordion shadow-sm flex" id="@parentId">
             <div class="accordion-item">
                 <div class="accordion-header">
-                    <button>test</button>
-                    <div class="accordion-button collapsed d-flex" type="button" data-bs-toggle="collapse" data-bs-target="#@childId" aria-expanded="false" aria-controls="#@childId">
-                        <div class="flex-fill">
+                    <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@childId" aria-expanded="false" aria-controls="#@childId">
+                        <div class="col">
                             <h3 class="h-5">
                                 @item.Name
                             </h3>
                         </div>
-                        <div class="flex-fill">
-                            <p class="align-middle">
+                        <div class="col">
+                            <p class="align-text-top">
                                 @item.DueDate?.ToLongDateString()
                             </p>
                             <p class="align-middle">
@@ -38,7 +37,7 @@
                 </div>
                 <div id="@childId" class="accordion-collapse collapse" data-bs-parent="#@parentId">
                     <div class="btn-group d-flex p-2">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addSubTaskModal">
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addSubTaskModal-@item.Id">
                             <i class="bi bi-file-earmark-plus-fill h-50"></i>
                         </button>
                         @* <i class="bi bi-calendar2-plus"></i> *@
@@ -71,4 +70,7 @@
             </div>
         </div>
     }
+
+    <partial name="AddTaskModal" model="new TaskOL()" />
+    <a class="btn btn-primary w-25 mt-4" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add Task</a>
 </div>
