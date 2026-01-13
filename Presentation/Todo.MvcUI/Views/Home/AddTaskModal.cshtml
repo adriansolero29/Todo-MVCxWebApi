@@ -1,0 +1,28 @@
+﻿@model Todo.MvcUI.Models.TaskOL
+
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="h5">
+                    Add Task
+                </h5>
+            </div>
+            <form asp-action="CreateTask">
+                <div class="modal-body">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="mb-3 mx-2 row">
+                        <input asp-for="Name" class="form-control" type="text" placeholder="Name" />
+                    </div>
+                    <div class="mb-3 mx-2 row">
+                        <input asp-for="DueDate" class="form-control" placeholder="Due Date" />
+                    </div>
+                </div>
+                <div class="modal-footer btn-group">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" Value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
