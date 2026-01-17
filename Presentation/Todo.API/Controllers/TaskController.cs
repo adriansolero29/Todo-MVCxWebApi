@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using Todo.API.Models;
 using Todo.UseCases.TaskUseCases;
 
@@ -12,12 +13,14 @@ namespace Todo.API.Controllers
         private readonly CreateTask createTask;
         private readonly GetTasks getTask;
         private readonly SetDueDate setDueDate;
+        private readonly SetAssignee setAssignee;
 
-        public TaskController(CreateTask createTask, GetTasks getTask, SetDueDate setDueDate)
+        public TaskController(CreateTask createTask, GetTasks getTask, SetDueDate setDueDate, SetAssignee setAssignee)
         {
             this.createTask = createTask;
             this.getTask = getTask;
             this.setDueDate = setDueDate;
+            this.setAssignee = setAssignee;
         }
 
         [HttpPost]
@@ -48,6 +51,21 @@ namespace Todo.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { Message = "Error occured setting due date: " + ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("setAssignee/{taskId:long}/{memberId:long}")]
+        public async Task<IActionResult> Post(long taskId, long memberId)
+        {
+            try
+            {
+                await setAssignee.ExecuteAsync(taskId, memberId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = "Error occured setting assignee: " + ex.Message });
             }
         }
 

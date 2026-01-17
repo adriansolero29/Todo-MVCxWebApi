@@ -49,11 +49,12 @@
                                 <input type="submit" value="Save DueDate" class="btn btn-primary" />
                             </form>
                         </a>
-                        <button class="btn btn-outline-secondary">
+                        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#memberModal">
                             <i class="bi bi-person-plus-fill fw-bold"></i>
                         </button>
 
                         <partial name="AddSubTaskModal" aria-labelledby="exampleModalLabel" model="new SubTaskOL() { TaskId = item.Id }" />
+                        <partial name="MemberModal" aria-labelledby="exampleModalLabel" />
                     </div>
                     @if (item.SubTasks != null)
                     {

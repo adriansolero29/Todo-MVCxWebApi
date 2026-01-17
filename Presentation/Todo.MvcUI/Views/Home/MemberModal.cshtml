@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MemberOL>
+
+<div class="modal fade" id="memberModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="h5">
+                    Members
+                </h5>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">First</th>
+                            <th scope="col">First</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                           <tr>
+                                <td>@item.First</td>
+                                <td>@item.Last</td>
+                           </tr> 
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
