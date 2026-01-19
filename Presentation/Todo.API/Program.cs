@@ -40,6 +40,7 @@ builder.Services.AddScoped<GetTasks>();
 builder.Services.AddScoped<CreateSubTask>();
 builder.Services.AddScoped<SetDueDate>();
 builder.Services.AddScoped<CreateUser>();
+builder.Services.AddScoped<SetAssignee>();
 
 var app = builder.Build();
 

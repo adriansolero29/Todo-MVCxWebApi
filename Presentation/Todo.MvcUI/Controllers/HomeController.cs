@@ -23,11 +23,21 @@ namespace Todo.MvcUI.Controllers
         public async Task<IActionResult> Index()
         {
             var response = await _httpClient.GetAsync("Task");
+            var memberResponse = await _httpClient.GetAsync("Member");
+
             if (!response.IsSuccessStatusCode)
                 return Error();
 
+            if (!memberResponse.IsSuccessStatusCode)
+                return Error();
+
+            var memberData = await memberResponse.Content.ReadAsStringAsync();
+            var jsonMemberData = JsonSerializer.Deserialize<IEnumerable<MemberOL>>(memberData, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
+            ViewBag.MemberList = jsonMemberData;
+
             var data = await response.Content.ReadAsStringAsync();
-            var jsonOutput = JsonSerializer.Deserialize<IEnumerable<TaskOL>>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true});
+            var jsonOutput = JsonSerializer.Deserialize<IEnumerable<TaskOL>>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
             return View(jsonOutput);
         }
@@ -63,6 +73,16 @@ namespace Todo.MvcUI.Controllers
             }
 
             var response = await _httpClient.PostAsJsonAsync("Task", task);
+            if (!response.IsSuccessStatusCode)
+                return Error();
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> SetAssignee(long taskId, long memberId)
+        {
+            var data = new { taskId, memberId };
+            var response = await _httpClient.PostAsJsonAsync($"Task/setAssignee/{taskId}/{memberId}", taskId);
             if (!response.IsSuccessStatusCode)
                 return Error();
 

@@ -49,12 +49,24 @@
                                 <input type="submit" value="Save DueDate" class="btn btn-primary" />
                             </form>
                         </a>
-                        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#memberModal">
-                            <i class="bi bi-person-plus-fill fw-bold"></i>
-                        </button>
-
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Assign Member
+                            </button>
+                            <ul class="dropdown-menu">
+                                @foreach (var member in ViewBag.MemberList as List<MemberOL> ?? new List<MemberOL>())
+                                {
+                                    <li>
+                                        <form asp-action="SetAssignee" method="post" style="display:inline;">
+                                            <input type="hidden" name="taskId" asp-for="@item.Id" />
+                                            <input type="hidden" name="memberId" asp-for="@member.Id" />
+                                            <input type="submit" value="@member.Name" />
+                                        </form>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                         <partial name="AddSubTaskModal" aria-labelledby="exampleModalLabel" model="new SubTaskOL() { TaskId = item.Id }" />
-                        <partial name="MemberModal" aria-labelledby="exampleModalLabel" />
                     </div>
                     @if (item.SubTasks != null)
                     {
